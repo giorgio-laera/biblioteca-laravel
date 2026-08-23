@@ -63,7 +63,7 @@
               
                             <div class="card-body d-flex flex-column bg-dark text-white rounded">
                               <h5 class="card-title">Libri totali</h5>
-                              <h3 class="card-text flex-grow-1">48</h3>
+                              <h3 class="card-text flex-grow-1">{{$totalBooks}}</h3>
               
                             </div>
                           </div>

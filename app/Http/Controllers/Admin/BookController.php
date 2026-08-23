@@ -14,7 +14,8 @@ class BookController extends Controller
     public function index()
     {
         $books = Book::all();
-        return view('books.index');
+        // dd($books);
+        return view('books.index', compact('books'));
     }
 
     /**
@@ -30,7 +31,23 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        $validator = $request->validate([
+            'title' => 'required|string|max:255',
+            'author' => 'required|string|max:255',
+            'year' => 'required|numeric|digits_between:1,4'
+        ]);
+        $data = $request->all();
+        // dd($data); CONTROLLO I DATI
+        // $newBook = Book::create([
+        //     'title'  => $data['title'],
+        //     'author' => $data['author'],
+        //     'year'   => $data['year'],
+        //     'genre'  => $data['genre']
+        // ]);
+        Book::create($validator);
+
+        return redirect()->route('books.index')->with('success', 'Libro creato con successo');
     }
 
     /**
