@@ -16,15 +16,15 @@
     {{-- Modal form create new book --}}
 <x-book-modal modal-id="bookModal" />
 
-<div class="list-group list-group-flush  rounded shadow-sm p-2 default_bg">
+<div class="list-group list-group-flush  rounded shadow-sm p-2 default_bg custom-scroll-md" >
    
   <!-- RIGA 1 -->
   <!-- d-flex e justify-content-between separano il testo dai pulsanti di azione sulla destra -->
 
   @foreach ($books as $book)
   
-  <x-bookCard :title="$book->title" :author="$book->author" :year="$book->year" :genre="$book->genre" :available="$book->available"/>
-      
+  <x-bookCard :title="$book->title" :author="$book->author" :year="$book->year" :genre="$book->genre" :available="$book->available" :id="$book->id"/>
+    <x-book-modal :modal-id="'editModal' . $book->id" :book="$book" />
   @endforeach
   
 

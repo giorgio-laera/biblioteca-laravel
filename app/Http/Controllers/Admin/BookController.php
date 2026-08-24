@@ -35,7 +35,8 @@ class BookController extends Controller
         $validator = $request->validate([
             'title' => 'required|string|max:255',
             'author' => 'required|string|max:255',
-            'year' => 'required|numeric|digits_between:1,4'
+            'year' => 'required|numeric|digits_between:1,4',
+            'genre'=> 'string|max:255'
         ]);
         $data = $request->all();
         // dd($data); CONTROLLO I DATI
@@ -58,20 +59,28 @@ class BookController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Book $book)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Book $book)
     {
-        //
+        $validator = $request->validate([
+            'title' => 'required|string|max:255',
+            'author' => 'required|string|max:255',
+            'year' => 'required|numeric|digits_between:1,4',
+            'genre'=> 'string|max:255'
+        ]);
+
+        $book->title= $validator['title'];
+        $book->author= $validator['author'];
+        $book->year= $validator['year'];
+        $book->genre= $validator['genre'];
+
+        $book->update();
+
+        return redirect()->route('books.index')->with('success', 'Libro creato con successo');
     }
 
     /**
@@ -79,6 +88,8 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
+
+        return redirect()->route('books.index')->with('success', 'Libro creato con successo');
     }
 }

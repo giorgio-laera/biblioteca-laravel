@@ -17,3 +17,10 @@
 .bg_grey{
     background-color: gray;
 }
+//per lo scroll solo su dispositivi lg
+@media (min-width: 992px) {
+    .custom-scroll-md {
+      max-height: 75vh;       /* Regola l'altezza massima del riquadro */
+      overflow-y: auto;        /* Attiva lo scroll verticale solo se serve */
+    }
+  }
