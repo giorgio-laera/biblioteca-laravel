@@ -1,4 +1,8 @@
-@props(['title', 'author', 'year', 'genre' => '', 'available', 'id'])
+{{-- @props(['title', 'author', 'year', 'genre' => '', 'available', 'id']) --}}
+
+ @php
+      extract($book?->toArray() ?? []) 
+ @endphp 
 
 <div class="list-group-item d-flex justify-content-between align-items-center py-3 default_bg">
     <div>

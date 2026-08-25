@@ -23,8 +23,9 @@
 
   @foreach ($books as $book)
   
-  <x-bookCard :title="$book->title" :author="$book->author" :year="$book->year" :genre="$book->genre" :available="$book->available" :id="$book->id"/>
+  <x-bookCard :$book/>
     <x-book-modal :modal-id="'editModal' . $book->id" :book="$book" />
+    <x-delete-modal :modal-id="'deleteModal' . $book->id" :book="$book" />
   @endforeach
   
 

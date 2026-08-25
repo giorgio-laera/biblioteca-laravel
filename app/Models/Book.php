@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Book extends Model
 {
-    protected $fillable = ['title','author', 'year', 'genre', 'available'];
+    protected $fillable = ['title','cover','author', 'year','description', 'genre', 'available'];
 
     protected static function booted()
     {

@@ -1,7 +1,9 @@
+
+
 <div class="modal fade" id="{{ $modalId }}" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ $book ? route('books.update', $book) : route('books.store') }}" method="POST">
+            <form action="{{ $book ? route('books.update', $book) : route('books.store') }}"  method="POST" enctype="multipart/form-data">
                 @csrf
                 @if ($book)
                     @method('PUT')

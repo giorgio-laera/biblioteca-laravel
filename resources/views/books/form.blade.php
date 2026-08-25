@@ -7,6 +7,18 @@
 </div>
 
 <div class="mb-3">
+    <label class="form-label">Copertina</label>
+    <input type="file" name="copertina" class="form-control" accept="image/*">
+    @error('copertina') <div class="text-danger">{{ $message }}</div> @enderror
+
+    @if (isset($book) && $book->copertina)
+        <div class="mt-2">
+            <img src="{{ asset('storage/' . $book->copertina) }}" alt="Copertina attuale" style="max-height: 100px;">
+        </div>
+    @endif
+</div>
+
+<div class="mb-3">
     <label class="form-label">Autore</label>
     <input type="text" name="author" class="form-control" value="{{ old('author', $book->author ?? '') }}" @required(true)>
     @error('author') <div class="text-danger">{{ $message }}</div> @enderror
@@ -21,4 +33,9 @@
 <div class="mb-3">
     <label class="form-label">Genere</label>
     <input type="text" name="genre" class="form-control" value="{{ old('genre', $book->genre ?? '') }}">
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Descrizione</label>
+    <textarea name="descrizione" class="form-control" rows="4">{{ $errors->any() ? old('descrizione') : ($book->descrizione ?? '') }}</textarea>
 </div>
