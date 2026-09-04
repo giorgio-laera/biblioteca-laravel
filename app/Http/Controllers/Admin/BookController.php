@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Book;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -32,21 +33,22 @@ class BookController extends Controller
     public function store(Request $request)
     {
         // dd($request);
-        $validator = $request->validate([
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
+            'cover' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'author' => 'required|string|max:255',
             'year' => 'required|numeric|digits_between:1,4',
-            'genre'=> 'string|max:255'
+            'genre'=> 'string|max:255',
+            'description' => 'string|max:255',
         ]);
         $data = $request->all();
-        // dd($data); CONTROLLO I DATI
-        // $newBook = Book::create([
-        //     'title'  => $data['title'],
-        //     'author' => $data['author'],
-        //     'year'   => $data['year'],
-        //     'genre'  => $data['genre']
-        // ]);
-        Book::create($validator);
+        
+        // dd($data['cover']); //CONTROLLO I DATI
+        if ($request->hasFile('cover')) {
+            $validated['cover']= $request->file('cover')->store('covers', 'public');
+        }
+
+        Book::create($validated);
 
         return redirect()->route('books.index')->with('success', 'Libro creato con successo');
     }
@@ -56,7 +58,7 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        return view('books.show', compact('book'));
     }
 
 
@@ -66,17 +68,24 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        $validator = $request->validate([
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
+            'cover' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'author' => 'required|string|max:255',
             'year' => 'required|numeric|digits_between:1,4',
-            'genre'=> 'string|max:255'
+            'genre'=> 'string|max:255',
+            'description' => 'string|max:255',
         ]);
+        
+        $book->title= $validated['title'];
+        $book->author= $validated['author'];
+        $book->year= $validated['year'];
+        $book->genre= $validated['genre'];
+        $book->description= $validated['description'];
 
-        $book->title= $validator['title'];
-        $book->author= $validator['author'];
-        $book->year= $validator['year'];
-        $book->genre= $validator['genre'];
+        if ($request->hasFile('cover')) {
+            $book->cover= $request->file('cover')->store('covers', 'public');
+        }
 
         $book->update();
 
@@ -88,6 +97,9 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
+        if($book->cover && Storage::disk('public')->exists($book->cover) ){
+            Storage::disk('public')->delete($book->cover);
+        };
         $book->delete();
 
         return redirect()->route('books.index')->with('success', 'Libro creato con successo');
