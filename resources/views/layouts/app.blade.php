@@ -55,7 +55,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{route('books.index')}}">Area Admin</a>
+                                    <a class="dropdown-item" href="{{ auth()->user()->role === 'admin' ? route('books.index') : env('FRONTEND_URL') }}">{{ auth()->user()->role === 'admin' ? 'Area admin' : 'Area clienti' }}</a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

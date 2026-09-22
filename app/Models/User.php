@@ -36,4 +36,9 @@ class User extends Authenticatable
         'password',
         'role',
     ];
+
+    public function loans(){
+    return $this->hasMany(Loan::class);    
+    }
 }
+

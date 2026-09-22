@@ -23,4 +23,14 @@ class Book extends Model
             }
         });
 }
+
+    public function loans(){
+
+        $this->hasMany(Loan::class);
+    }
+    // Il prestito attivo del libro, se esiste (max uno)
+    public function activeLoan(){
+
+    return $this->hasOne(Loan::class)->whereNull('return_date');
+    }
 }

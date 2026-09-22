@@ -16,8 +16,10 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {   
-        if(Auth::check() && $request->user()->role==='admin'){
+        if(Auth::check() && $request->user()->role ==='admin'){
             return $next($request); 
+        }elseif(Auth::check() && $request->user()->role ==='cliente'){
+            return redirect()->away('http://localhost:5173');
         }
         return redirect('/')->with('error', 'You do not have admin access.');   
     }
