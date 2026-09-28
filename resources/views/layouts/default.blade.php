@@ -37,7 +37,7 @@
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link text-white opacity-75 px-3 py-2" href="#">
+                        <a class="nav-link text-white rounded px-3 py-2 {{ Route::is('loans.index') ? 'bg-primary active' : 'opacity-75' }}" href="{{route('loans.index')}}">
                           <i class="bi bi-book me-2"></i> Prestiti
                         </a>
                       </li>
@@ -63,7 +63,7 @@
               
                             <div class="card-body d-flex flex-column bg-dark text-white rounded">
                               <h5 class="card-title">Libri totali</h5>
-                              <h3 class="card-text flex-grow-1">{{$totalBooks}}</h3>
+                              <h3 class="card-text flex-grow-1">{{$totalCount['totalBooks']}}</h3>
               
                             </div>
                           </div>
@@ -74,7 +74,7 @@
               
                             <div class="card-body d-flex flex-column">
                               <h5 class="card-title">Prestiti</h5>
-                              <h3 class="card-text  flex-grow-1">54</h3>
+                              <h3 class="card-text  flex-grow-1">{{$totalCount['totalLoans']}}</h3>
               
                             </div>
                           </div>
@@ -85,7 +85,7 @@
               
                             <div class="card-body d-flex flex-column">
                               <h5 class="card-title">Utenti attivi</h5>
-                              <h3 class="card-text  flex-grow-1">14</h3>
+                              <h3 class="card-text  flex-grow-1">{{$totalCount['totalUsers']}}</h3>
               
                             </div>
                           </div>

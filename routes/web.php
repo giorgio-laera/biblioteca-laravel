@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\BookController;
+use App\Http\Controllers\Admin\LoanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Route;
@@ -21,9 +22,13 @@ Route::middleware('auth')->group(function () {
 Route::resource('books', BookController::class)
 ->middleware(IsAdmin::class);
 
+Route::resource('loans', LoanController::class)
+->middleware(IsAdmin::class);
+
 require __DIR__.'/auth.php';
 
 // Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/loans', [App\Http\Controllers\LoanController::class, 'index'])->name('loan');
 

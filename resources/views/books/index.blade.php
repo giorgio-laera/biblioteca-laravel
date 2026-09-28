@@ -1,7 +1,7 @@
-@extends('layouts.book')
+@extends('layouts.default')
 @section('title', 'libri')
 
-@section('countBooks', $books->count())
+
     
 
 

@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Book;
+use App\Models\Loan;
+use App\Models\User;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -22,9 +24,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
            // Condividi il conteggio con il tuo file di layout (es. 'components.layout' o 'layouts.app')
-    View::composer('layouts.book', function ($view) {
+    View::composer('layouts.default', function ($view) {
         // Conta i libri direttamente dal database in modo super veloce
-        $view->with('totalBooks', Book::count()); 
+
+        $view->with('totalCount',['totalBooks'=> Book::count(), 'totalLoans' => Loan::count(), 'totalUsers' => User::count()]); 
     });
     }
 }
